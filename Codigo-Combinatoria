@@ -1,0 +1,338 @@
+#include<iostream>
+#include"rlutil.h"
+
+
+using namespace std;
+using namespace rlutil;
+
+int main() {
+	
+	setBackgroundColor(BLUE);
+
+	bool mostrar = false, valor = false;
+	int cursorx = 20, cursory = 4, tecla;
+	int poblacion, muestra;
+	long long int factorial_1 = 1, factorial_2 = 1, factorial_3 = 1;
+	char orden = 'P', repeticion = 'P', lineal = 'P';
+	long long int resultado;
+	int cursorx_2 = 58, cursory_2 = 2, tecla2;
+		
+		cout << "------------------------------"<<endl;
+		cout << "Ingrese la poblacion: "; cin >> poblacion;
+		cout << "Ingrese la muestra: "; cin >> muestra;
+		do {
+
+			while (mostrar == true) {
+				cout << "------------------------------" << endl;
+				gotoxy(1, 2);
+				cout << "Ingrese la poblacion: " << poblacion;
+				gotoxy(1, 3);
+				cout << "Ingrese la muestra: " << muestra;
+
+				mostrar = false;
+			}
+			gotoxy(1, 4);
+			cout << (char)168 << "Importa el orden?   SI   NO" << endl;
+			gotoxy(1, 5);
+			cout << (char)168 << "Hay repeticion?   SI   NO" << endl;;
+			cout << "------------------------------" << endl;
+
+			gotoxy(cursorx, cursory); 
+
+			cout << (char)175;
+
+			tecla = getch();
+			cls();
+			mostrar = true;
+			if (cursorx == 20 || cursorx == 25) {
+				switch (tecla) {
+				case 77:
+					cursorx += 5;
+					if (cursorx > 25) {
+
+						cursorx = 25;
+					}
+
+					break;
+				case 75:
+					cursorx -= 5;
+					if (cursorx < 20) {
+
+						cursorx = 20;
+					}
+					break;
+				case 13:
+					valor = true;
+					switch (cursorx) {
+					case 20:
+						orden = 'S';
+						break;
+					case 25:
+						orden = 'N';
+						break;
+					}
+					break;
+				}
+			}else {
+		
+				switch (tecla) {
+				case 77:
+					cursorx += 5;
+					if (cursorx > 23) {
+
+						cursorx = 23;
+					}
+
+					break;
+				case 75:
+					cursorx -= 5;
+					if (cursorx < 18) {
+
+						cursorx = 18;
+					}
+					break;
+				case 13:
+					switch (cursorx) {
+
+					case 18:
+						repeticion = 'S';
+						break;
+					case 23:
+						repeticion = 'N';
+						break;
+					}
+					break;
+				}
+
+			}
+			
+			if (valor == true) {
+
+				cursorx = 18;
+				cursory = 5;
+				valor = false;
+			}
+
+		} while ( (orden != 'S' && orden != 'N') || (repeticion != 'S' && repeticion != 'N'));
+		system("cls");
+
+	switch (orden) {
+	case 'N':
+		switch (repeticion) {
+		case 'N':
+			for (int x = 1; x <= poblacion; x++) {
+
+				factorial_1 *= x;
+
+			}
+
+			for (int i = 1; i <= muestra; i++) {
+
+				factorial_2 *= i;
+			}
+
+			for (int o = 1; o <= (poblacion - muestra); o++) {
+
+				factorial_3 *= o;
+			}
+
+			resultado = factorial_1 / (factorial_2 * factorial_3);
+
+			cout << "----------------------------------------------------------------------" << endl;
+			cout << "La cantidad de combinaciones posibles son: " << resultado << endl;
+			cout << "La agrupacion elegida fue Combinacion sin repeticion" << endl;
+			cout << "La formula es: poblacion! / (muestra! * (poblacion - muestra)!)" << endl;
+			cout << "----------------------------------------------------------------------" << endl;
+			system("pause");
+		break;
+		case 'S':
+
+			for (int x = 1; x <= ((poblacion + muestra) - 1); x++) {
+
+				factorial_1 *= x;
+
+			}
+
+			for (int i = 1; i <= muestra; i++) {
+
+				factorial_2 *= i;
+			}
+
+			for (int o = 1; o <= (poblacion - 1); o++) {
+
+				factorial_3 *= o;
+			}
+
+			resultado = factorial_1 / (factorial_2 * factorial_3);
+
+			cout << "----------------------------------------------------------------------" << endl;
+			cout << "La cantidad de combinaciones posibles son: " << resultado << endl;
+			cout << "La agrupacion elegida fue Combinacion con repeticion" << endl;
+			cout << "La formula es: ((poblacion + muestra) - 1)! / (muestra! * (poblacion - 1)!)" << endl;
+			cout << "----------------------------------------------------------------------" << endl;
+			system("pause");
+		break;
+		}
+	break;
+	case 'S':
+		if (poblacion == muestra) {
+
+			switch (repeticion) {
+			case 'N':
+
+				do {
+					cls();
+					cout << "---------------------------------------------------------------------" << endl;
+					cout << "El orden al cambiar de posicion, "<< (char) 168 << "Sigue siendo el mismo?   SI   NO" << endl;
+					cout << "---------------------------------------------------------------------" << endl;
+
+					gotoxy(cursorx_2, cursory_2);
+
+					cout << (char)175;
+
+					tecla2 = getch();
+
+					switch (tecla2) {
+					case 77:
+						cursorx_2 += 5;
+						if (cursorx_2 > 63) {
+
+							cursorx_2 = 63;
+						}
+					break;
+					case 75:
+						cursorx_2 -= 5;
+						if (cursorx_2 < 58) cursorx_2 = 58;
+					break;
+					case 13:
+						switch (cursorx_2) {
+						case 58:
+							lineal = 'S';
+						break;
+						case 63:
+							lineal = 'N';
+						break;
+						}
+					break;
+					}
+
+				} while (lineal != 'S' && lineal != 'N');
+				system("cls");
+
+				switch (lineal) {
+				case 'N':
+					for (int x = 1; x <= poblacion; x++) {
+
+						factorial_1 *= x;
+					}
+
+					cout << "----------------------------------------------------------------------" << endl;
+					cout << "La cantidad de combinaciones posibles son " << factorial_1 << endl;
+					cout << "La agrupacion elegida fue Permutacion lineal" << endl;
+					cout << "La formula es: poblacion!" << endl;
+					cout << "----------------------------------------------------------------------" << endl;
+					system("pause");
+				break;
+				case 'S':
+
+					for (int x = 1; x <= (poblacion-1); x++) {
+
+						factorial_1 *= x;
+					}
+
+					cout << "----------------------------------------------------------------------" << endl;
+					cout << "La cantidad de combinaciones posibles son " << factorial_1 << endl;
+					cout << "La agrupacion elegida fue Permutacion circular" << endl;
+					cout << "La formula es: (poblacion - 1)!" << endl;
+					cout << "----------------------------------------------------------------------" << endl;
+					system("pause");
+				break;
+				}
+			break;
+			case 'S':
+				long long int repetidos, acu_repetidos = 0;
+
+				for (int x = 1; x <= poblacion; x++) {
+
+					factorial_1 *= x;
+				}
+
+				cout << "Se termina con 0 o si la suma de todos los elementos repetidos supera a la poblacion"<<endl;
+				cout << "Ingrese elementos repetidos: "; cin >> repetidos;
+				system("cls");
+
+				while (acu_repetidos + repetidos < poblacion && repetidos != poblacion && repetidos != 0) {
+					long long int factorial_repetidos = 1;
+
+					for (int i = 1; i <= repetidos; i++) {
+
+						factorial_repetidos *= i;
+					}
+
+					factorial_2 *= factorial_repetidos;
+
+					acu_repetidos += repetidos;
+
+					cout << "Se termina con 0 o si la suma de todos los elementos repetidos supera a la poblacion"<<endl;
+					cout << "Ingrese elementos repetidos: "; cin >> repetidos;
+					system("cls");
+
+				}
+
+				resultado = factorial_1 / factorial_2;
+
+				cout << "----------------------------------------------------------------------" << endl;
+				cout << "La cantidad de combinaciones son " << resultado << endl;
+				cout << "La agrupacion es Permutacion con repeticion" << endl;
+				cout << "La formula es: poblacion! / repetido1!*repetido2!...." << endl;
+				cout << "----------------------------------------------------------------------" << endl;
+				system("pause");
+			break;
+			}
+		}
+		else {
+			switch (repeticion) {
+			case 'N':
+				for (int x = 1; x <= poblacion; x++) {
+
+					factorial_1 *= x;
+				}
+
+				for (int i = 1; i <= (poblacion - muestra); i++) {
+
+					factorial_2 *= i;
+
+				}
+
+				resultado = factorial_1 / factorial_2;
+
+				cout << "----------------------------------------------------------------------" << endl;
+				cout << "La cantidad de combinaciones son " << resultado << endl;
+				cout << "La agrupacion es Variacion sin repeticion" << endl;
+				cout << "La formula es: poblacion! / (poblacion - muestra)!" << endl;
+				cout << "----------------------------------------------------------------------" << endl;
+				system("pause");
+			break;
+			case 'S':
+
+				for (int x = 1; x <= muestra; x++) {
+
+					factorial_1 *= poblacion;
+
+				}
+
+				cout << "----------------------------------------------------------------------" << endl;
+				cout << "La cantidad de combinaciones son " << factorial_1 << endl;
+				cout << "La agrupacion es Variacion con repeticion" << endl;
+				cout << "La formula es: poblacion elevado a la muestra" << endl;
+				cout << "----------------------------------------------------------------------" << endl;
+				system("pause");
+			break;
+			}
+
+		}
+	break;
+	}
+
+	return 0;
+}
